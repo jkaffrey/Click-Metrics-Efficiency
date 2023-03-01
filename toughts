@@ -1,0 +1,25 @@
+Initial Potential Problems
+- With the decodes.json containing 10000 entries and potentially becoming larger, nodes native filestream may fail with the following error:
+  "ERR_STRING_TOO_LONG / Cannot create a string longer than 0x1fffffe8 characters". With that thought in mind, it is most likely best to avoid attempting to
+  store the entire object in memory and instead stream over the objects within the array.
+-- Though this could potentially be done by using filestream alone, there are several NPM libraries out there that already perform this function with great efficency.
+   Via some research and some vetting, along with viewing downloads and usability JSONStream seems to be a great potential solution
+
+Initial Thoughts / Questions
+- Sort our decodes.json via date?
+-- We can then start in the middle and work our way forwards and backwards until we reach a date outside of the boundary
+-- This will prevent us from iterating over objects that are outside the scope of the results that we want.
+-- If we are sorting the decodes.json file we are already iterating over it once so is this really improving our alogrithmic efficiency?
+
+- Do we care about links outside of bit.ly links?
+
+Potential Ways to get the number of encode records inside the decodes array
+- Using Array.filter
+-- Involves storing the entire array of decodes.json in memory
+
+- Using JSONStream
+-- Is streaming over the json object going to be more efficient? If so, is it enough so that it matters?
+
+One we have the correlating entires summed up in an array we then need to find the number of entries that occurred inside the year 2021
+- Performing another for loop inside the filter is going to significantly decrease the efficiency of the alogrithm
+-- With that being said, Array.filter may not be the best option as it is going to requre yet another .filter on the output of the first .filter call.
